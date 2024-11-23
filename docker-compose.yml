@@ -1,0 +1,29 @@
+services:
+  api01: &api
+    build: .
+    hostname: api01
+    environment:
+      - DEVICE_COUNT=3000
+      - PORT=8081
+    network_mode: host
+    deploy:
+      resources:
+        limits:
+          cpus: "0.30"
+          memory: "50MB"
+
+  api02:
+    <<: *api
+    environment:
+      - DEVICE_COUNT=3000
+      - PORT=8080
+    hostname: api02
+
+  ferrugem:
+    image: erickcestari/ferrugem:latest
+    volumes:
+      - ./ferrugem.toml:/usr/local/bin/ferrugem.toml
+    depends_on:
+      - api01
+      - api02
+    network_mode: host

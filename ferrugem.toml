@@ -1,0 +1,11 @@
+port = 9999
+log_level='none'
+algorithm = 'round-robin'
+
+[[servers]]
+name = "node-backend1"
+url = "http://127.0.0.1:8080"
+
+[[servers]]
+name = "node-backend2"
+url = "http://127.0.0.1:8081"
