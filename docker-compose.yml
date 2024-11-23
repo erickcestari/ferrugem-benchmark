@@ -36,7 +36,7 @@ services:
     hostname: api02
 
   ferrugem:
-    image: erickcestari/ferrugem:latest
+    image: erickcestari/ferrugem:v1.0.0
     volumes:
       - ./ferrugem.toml:/usr/local/bin/ferrugem.toml
     depends_on:
