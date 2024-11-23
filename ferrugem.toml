@@ -9,3 +9,15 @@ url = "http://127.0.0.1:8080"
 [[servers]]
 name = "node-backend2"
 url = "http://127.0.0.1:8081"
+
+[[servers]]
+name = "node-backend3"
+url = "http://127.0.0.1:8082"
+
+[[servers]]
+name = "node-backend4"
+url = "http://127.0.0.1:8083"
+
+[[servers]]
+name = "node-backend5"
+url = "http://127.0.0.1:8084"
