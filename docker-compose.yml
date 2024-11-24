@@ -36,7 +36,7 @@ services:
     hostname: api02
 
   ferrugem:
-    image: erickcestari/ferrugem:v1.0.0
+    image: erickcestari/ferrugem:latest
     volumes:
       - ./ferrugem.toml:/usr/local/bin/ferrugem.toml
     depends_on:
@@ -46,3 +46,7 @@ services:
       - api04
       - api05
     network_mode: host
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536

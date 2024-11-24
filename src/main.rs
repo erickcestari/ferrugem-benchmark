@@ -1,10 +1,9 @@
-use std::env;
-
-use actix_web::{get, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use fake::{
     faker::internet::en::IPv4, faker::internet::en::MACAddress, faker::name::en::Name, Fake,
 };
 use serde::Serialize;
+use std::env;
 
 #[derive(Serialize)]
 struct Device {
@@ -37,14 +36,12 @@ fn generate_mocked_devices(count: usize) -> Vec<Device> {
 }
 
 #[get("/")]
-async fn hello() -> impl Responder {
-    let count: usize = env::var("DEVICE_COUNT")
-        .unwrap_or("1000".to_string())
-        .parse()
-        .unwrap();
-    let devices = generate_mocked_devices(count);
+async fn hello(data: web::Data<AppState>) -> impl Responder {
+    HttpResponse::Ok().json(&data.devices)
+}
 
-    HttpResponse::Ok().json(devices)
+struct AppState {
+    devices: Vec<Device>,
 }
 
 #[actix_web::main]
@@ -54,7 +51,14 @@ async fn main() -> std::io::Result<()> {
         .parse()
         .unwrap();
 
-    HttpServer::new(|| App::new().service(hello))
+    let count: usize = env::var("DEVICE_COUNT")
+        .unwrap_or("1000".to_string())
+        .parse()
+        .unwrap();
+    let devices = generate_mocked_devices(count);
+    let app_state = web::Data::new(AppState { devices });
+
+    HttpServer::new(move || App::new().app_data(app_state.clone()).service(hello))
         .bind(("127.0.0.1", port))?
         .run()
         .await
