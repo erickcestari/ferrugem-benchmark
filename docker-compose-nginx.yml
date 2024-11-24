@@ -3,35 +3,35 @@ services:
     build: .
     hostname: api01
     environment:
-      - DEVICE_COUNT=3000
+      - DEVICE_COUNT=500
       - PORT=8080
     network_mode: host
 
   api02:
     <<: *api
     environment:
-      - DEVICE_COUNT=3000
+      - DEVICE_COUNT=500
       - PORT=8081
     hostname: api02
   
   api03:
     <<: *api
     environment:
-      - DEVICE_COUNT=3000
+      - DEVICE_COUNT=500
       - PORT=8082
     hostname: api02
 
   api04:
     <<: *api
     environment:
-      - DEVICE_COUNT=3000
+      - DEVICE_COUNT=500
       - PORT=8083
     hostname: api02
 
   api05:
     <<: *api
     environment:
-      - DEVICE_COUNT=3000
+      - DEVICE_COUNT=500
       - PORT=8084
     hostname: api02
 
